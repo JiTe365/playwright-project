@@ -1,0 +1,50 @@
+{
+  "name": "my-first-playwright-project",
+  "version": "1.0.0",
+  "description": "Playwright basics",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:trace": "playwright test --trace=on",
+    "test:retries": "playwright test --retries=2",
+    "test:grep": "playwright test -g",
+
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project=\"Mobile Chrome\"",
+
+    "test:saucedemo": "playwright test tests/saucedemo-login.spec.ts",
+    "test:saucedemo:headed": "playwright test tests/saucedemo-login.spec.ts --headed",
+    "test:saucedemo:ui": "playwright test tests/saucedemo-login.spec.ts --ui",
+
+    "test:todomvc": "playwright test tests/todomvc.spec.ts",
+    "test:todomvc:headed": "playwright test tests/todomvc.spec.ts --headed",
+    "test:todomvc:ui": "playwright test tests/todomvc.spec.ts --ui",
+
+    "test:parallel": "playwright test --workers=4",
+    "test:serial": "playwright test --workers=1",
+
+    "report": "playwright show-report",
+    "codegen": "playwright codegen",
+    "codegen:saucedemo": "playwright codegen https://www.saucedemo.com",
+    "codegen:todomvc": "playwright codegen https://demo.playwright.dev/todomvc",
+    "install:browsers": "playwright install",
+
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint:types": "npm run typecheck",
+    "ci": "npm run typecheck && playwright test"
+  },
+  "keywords": ["playwright", "testing", "automation", "e2e"],
+  "author": "Jarmo Tahti",
+  "license": "MIT",
+  "devDependencies": {
+    "@faker-js/faker": "^10.3.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.3",
+    "dotenv": "^17.3.1",
+    "typescript": "^5.9.3"
+  }
+}

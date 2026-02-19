@@ -1,0 +1,666 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\x1503za-l1163w\\Documents\\playwright-practice\\my-first-playwright-project\\playwright.config.ts",
+    "rootDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 8
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "Mobile Chrome",
+        "name": "Mobile Chrome",
+        "testDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 8
+        },
+        "id": "Mobile Safari",
+        "name": "Mobile Safari",
+        "testDir": "C:/Users/x1503za-l1163w/Documents/playwright-practice/my-first-playwright-project/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "example.spec.ts",
+      "file": "example.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "has title",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3615,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.199Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-b06063a3e613764d08f8",
+          "file": "example.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "get started link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3978,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:06.992Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-274e97907a6e3638a22f",
+          "file": "example.spec.ts",
+          "line": 10,
+          "column": 5
+        },
+        {
+          "title": "has title",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 3111,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.110Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-f53a5ad453cd33dc57d5",
+          "file": "example.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "get started link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 4,
+                  "status": "passed",
+                  "duration": 2954,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.024Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-bfe080d6fe34297f494c",
+          "file": "example.spec.ts",
+          "line": 10,
+          "column": 5
+        },
+        {
+          "title": "has title",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 6,
+                  "status": "passed",
+                  "duration": 1048,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.521Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-4a26ebd06a6b810edcc2",
+          "file": "example.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "get started link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 7,
+                  "status": "passed",
+                  "duration": 1613,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.530Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-1eb159041d56409ed83c",
+          "file": "example.spec.ts",
+          "line": 10,
+          "column": 5
+        },
+        {
+          "title": "has title",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 7,
+                  "status": "passed",
+                  "duration": 1363,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:13.656Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-b59684751ba4e0c326d2",
+          "file": "example.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "get started link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 6,
+                  "status": "passed",
+                  "duration": 1026,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:14.832Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-20751165d522b4e98010",
+          "file": "example.spec.ts",
+          "line": 10,
+          "column": 5
+        },
+        {
+          "title": "has title",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1211,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:14.886Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-2fe6c330d7850c262360",
+          "file": "example.spec.ts",
+          "line": 3,
+          "column": 5
+        },
+        {
+          "title": "get started link",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1448,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:15.130Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a30a6eba6312f6b87ea5-79cc3d222f94cc39c750",
+          "file": "example.spec.ts",
+          "line": 10,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "saucedemo-login.spec.ts",
+      "file": "saucedemo-login.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "login to Sauce Demo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 3777,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.374Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d900de64a91b3c9fcd38-617daefda7d027b09780",
+          "file": "saucedemo-login.spec.ts",
+          "line": 4,
+          "column": 5
+        },
+        {
+          "title": "login to Sauce Demo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 5,
+                  "status": "passed",
+                  "duration": 3828,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:07.520Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d900de64a91b3c9fcd38-5fd9e5b23bf3c710d33e",
+          "file": "saucedemo-login.spec.ts",
+          "line": 4,
+          "column": 5
+        },
+        {
+          "title": "login to Sauce Demo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 6,
+                  "status": "passed",
+                  "duration": 2029,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:08.671Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d900de64a91b3c9fcd38-ae5cff229e220c18efbd",
+          "file": "saucedemo-login.spec.ts",
+          "line": 4,
+          "column": 5
+        },
+        {
+          "title": "login to Sauce Demo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 4,
+                  "status": "passed",
+                  "duration": 1983,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:15.511Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d900de64a91b3c9fcd38-bc5e81d86fb3ef975aa9",
+          "file": "saucedemo-login.spec.ts",
+          "line": 4,
+          "column": 5
+        },
+        {
+          "title": "login to Sauce Demo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 1287,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-02-18T10:15:15.670Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d900de64a91b3c9fcd38-41e12b1cfe527c793a2c",
+          "file": "saucedemo-login.spec.ts",
+          "line": 4,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-02-18T10:15:04.378Z",
+    "duration": 13704.512999999999,
+    "expected": 15,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

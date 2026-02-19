@@ -1,0 +1,64 @@
+Problem:
+
+PS C:\Users\x1503za-l1163w> npm --version
+npm : File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see 
+about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:1
++ npm --version
++ ~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+
+Solution:
+
+PS C:\Users\x1503za-l1163w> Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+PS C:\Users\x1503za-l1163w> Get-ExecutionPolicy -Scope CurrentUser
+RemoteSigned
+PS C:\Users\x1503za-l1163w> Get-ExecutionPolicy -List
+
+        Scope ExecutionPolicy
+        ----- ---------------
+MachinePolicy       Undefined
+   UserPolicy       Undefined
+      Process       Undefined
+  CurrentUser    RemoteSigned
+ LocalMachine       Undefined
+
+PS C:\Users\x1503za-l1163w> npm --version
+11.7.0
+
+###############################################
+Fix (recommended): allow local scripts for your user
+Open PowerShell (or the VS Code terminal if it’s PowerShell) and run:
+
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+Close that terminal, open a new one, then try:
+
+npm --version
+
+If your company policy blocks that
+Some managed laptops prevent changing policy. Try Process scope (only for the current terminal session):
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+npm --version
+
+Alternative workaround: don’t use PowerShell for npm
+In VS Code:
+
+Open the terminal dropdown → choose Command Prompt or Git Bash
+
+Then run npm --version
+
+Quick check: see what policies apply
+Get-ExecutionPolicy -List
+
+To install cross-env once:
+npm i -D cross-env
+
+Find where dotenv.config is called (your earlier case)
+
+Use Ctrl+Shift+F and search:
+
+dotenv.config
+
+

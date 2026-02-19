@@ -1,0 +1,74 @@
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project> 
+echo $env:NODE_OPTIONS --require "c:/Users/x1503za-l1163w/AppData/Local/Programs/Microsoft VS Code/c3a26841a8/resources/app/extensions/ms-vscode.js-debug/src/bootloader.js" --inspect-publish-uid=http 
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project> echo $env:PWDEBUG 
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project>
+
+In Settings -> Search fot -> Debug: Node
+ava › Debug › Settings: Debug Support On Decompiled Source
+[Experimental]: Enable debugging support on the decompiled source code. Be aware that this feature may 
+affect the loading speed of Call Stack Viewlet.
+
+Changed to "off"
+and restart terminal
+
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project> echo $env:NODE_OPTIONS
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project> echo $env:PWDEBUG     
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project>
+
+Run test again:
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project> npm test
+
+> my-first-playwright-project@1.0.0 test
+> playwright test
+
+[dotenv@17.3.1] injecting env (4) from .env -- tip: 🤖 agentic secret storage: https://dotenvx.com/as2
+[dotenv@17.3.1] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+
+Running 3 tests using 2 workers
+
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.3.1] injecting env (0) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+  ✓  1 tests\saucedemo-login.spec.ts:4:5 › login with test data helper (3.9s)
+[dotenv@17.3.1] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+  ✓  2 old_tests\example.spec.ts:3:5 › has title (3.4s)
+  ✓  3 old_tests\example.spec.ts:10:5 › get started link (434ms)
+
+  3 passed (5.4s)
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project> echo $env:NODE_OPTIONS
+PS C:\Users\x1503za-l1163w\Documents\playwright-practice\my-first-playwright-project>
+
+#############################
+If you want to control it with an env var (toggle)
+
+This works well because you can set the env var from the terminal (or VS Code settings), 
+without changing code each time:
+
+import { defineConfig } from '@playwright/test';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  quiet: process.env.DOTENV_QUIET === 'true',
+  debug: process.env.DOTENV_DEBUG === 'true',
+});
+
+export default defineConfig({
+  use: {
+    baseURL: process.env.BASE_URL,
+  },
+});
+
+
+Then in PowerShell, for example:
+
+$env:DOTENV_QUIET="true"
+npx playwright test
+
+
+or
+
+$env:DOTENV_DEBUG="true"
+npx playwright test
+
+
+Note: this only controls dotenv’s own messages. 
+The earlier “Debugger attached” messages are from VS Code Auto Attach (NODE_OPTIONS), not dotenv.
