@@ -51,6 +51,8 @@ jobs:
       - name: Setup Pages
         if: always()
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       # Upload the report folder as the Pages artifact
       - name: Upload Pages artifact (playwright-report)
