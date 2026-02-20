@@ -31,10 +31,9 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run Playwright tests (list + html)
+        run: npx playwright test --reporter=list,html
 
-      # Upload artifacts
       - name: Upload Playwright report
         if: always()
         uses: actions/upload-artifact@v4
