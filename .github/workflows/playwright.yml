@@ -1,26 +1,16 @@
-name: Playwright Report (GitHub Pages)
+name: Playwright Tests
 
 on:
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  test-and-publish:
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -41,33 +31,23 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      # Run tests but don't stop the workflow here (so we can publish the report even on failures)
       - name: Run Playwright tests (list + html)
-        id: tests
-        continue-on-error: true
         run: npx playwright test --reporter=list,html
 
-      # Prepare Pages
-      - name: Setup Pages
+      - name: Upload Playwright report
         if: always()
-        uses: actions/configure-pages@v5
+        uses: actions/upload-artifact@v4
         with:
-          enablement: true
-
-      # Upload the report folder as the Pages artifact
-      - name: Upload Pages artifact (playwright-report)
-        if: always()
-        uses: actions/upload-pages-artifact@v3
-        with:
+          name: playwright-report
           path: playwright-report
+          if-no-files-found: ignore
+          retention-days: 14
 
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        if: always()
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      # Finally, fail the workflow if tests failed
-      - name: Fail job if tests failed
-        if: steps.tests.outcome != 'success'
-        run: exit 1
+      - name: Upload test results (traces/videos/screenshots) only on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 14
