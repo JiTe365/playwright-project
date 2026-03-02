@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-# playwright-project
-Complete Playwright test automation framework with real working examples.
-=======
+# A complete Playwright test automation framework with real working examples.
+
 # Playwright Project Pack
 
 Complete Playwright test automation framework with real working examples.
@@ -85,4 +83,4 @@ Step 5: Connect to GitHub
 git remote add origin https://github.com/yourusername/playwright-project-pack.git
 git branch -M main
 git push -u origin main
->>>>>>> d310edc (Initial commit: Playwright framework with SauceDemo and TodoMVC tests)
+
