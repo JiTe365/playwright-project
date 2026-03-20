@@ -5,6 +5,8 @@ node_modules/
 # Test results
 test-results/
 playwright-report/
+.playwright-cli/
+old_tests/
 
 # Environment variables
 .env
