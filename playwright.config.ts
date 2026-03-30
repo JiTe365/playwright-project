@@ -17,6 +17,7 @@ export default defineConfig({
   testIgnore: ['**/token-usage.spec.ts'],
 
   use: {
+    baseURL: process.env.BASE_URL || 'https://www.saucedemo.com',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

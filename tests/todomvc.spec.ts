@@ -1,62 +1,51 @@
 import { test, expect } from '@playwright/test';
-
-const TODO_MVC_URL = 'https://demo.playwright.dev/todomvc';
+import { TodoMVCPage } from '../utils/TodoMVCPage';
 
 test.describe('TodoMVC', () => {
-  test('can add a todo item', async ({ page }) => {
-    await page.goto(TODO_MVC_URL);
+  let todoPage: TodoMVCPage;
 
-    const newTodo = page.getByPlaceholder('What needs to be done?');
-
-    await newTodo.fill('Buy milk');
-    await newTodo.press('Enter');
-
-    await expect(page.getByTestId('todo-title')).toHaveText(['Buy milk']);
-    await expect(page.getByTestId('todo-count')).toContainText('1 item left');
+  test.beforeEach(async ({ page }) => {
+    todoPage = new TodoMVCPage(page);
+    await todoPage.goto();
   });
 
-  test('can complete and clear a todo item', async ({ page }) => {
-    await page.goto(TODO_MVC_URL);
+  test('can add a todo item', async () => {
+    await todoPage.addTodo('Buy milk');
 
-    const newTodo = page.getByPlaceholder('What needs to be done?');
+    await expect(todoPage.todoTitles).toHaveText(['Buy milk']);
+    await expect(todoPage.todoCount).toContainText('1 item left');
+  });
 
-    await newTodo.fill('Walk the dog');
-    await newTodo.press('Enter');
+  test('can complete and clear a todo item', async () => {
+    await todoPage.addTodo('Walk the dog');
 
     // Mark completed
-    await page.getByTestId('todo-item').getByRole('checkbox').check();
+    await todoPage.completeTodoByIndex(0);
 
-    await expect(page.getByTestId('todo-item')).toHaveClass(/completed/);
-    await expect(page.getByTestId('todo-count')).toContainText('0 items left');
+    await expect(todoPage.todoItems.nth(0)).toHaveClass(/completed/);
+    await expect(todoPage.todoCount).toContainText('0 items left');
 
     // Clear completed
-    await page.getByRole('button', { name: 'Clear completed' }).click();
+    await todoPage.clearCompleted();
 
     // The list container may disappear; assert there are no items instead
-    await expect(page.getByTestId('todo-item')).toHaveCount(0);
+    await expect(todoPage.todoItems).toHaveCount(0);
   });
 
-  test('can filter Active and Completed', async ({ page }) => {
-    await page.goto(TODO_MVC_URL);
-
-    const newTodo = page.getByPlaceholder('What needs to be done?');
-
-    await newTodo.fill('Task A');
-    await newTodo.press('Enter');
-
-    await newTodo.fill('Task B');
-    await newTodo.press('Enter');
+  test('can filter Active and Completed', async () => {
+    await todoPage.addMultipleTodos(['Task A', 'Task B']);
 
     // Complete Task B
-    const items = page.getByTestId('todo-item');
-    await items.nth(1).getByRole('checkbox').check();
+    await todoPage.completeTodoByIndex(1);
 
     // Active filter should show only Task A
-    await page.getByRole('link', { name: 'Active' }).click();
-    await expect(page.getByTestId('todo-title')).toHaveText(['Task A']);
+    await todoPage.filterBy('active');
+    await expect(todoPage.todoTitles).toHaveText(['Task A']);
 
     // Completed filter should show only Task B
-    await page.getByRole('link', { name: 'Completed' }).click();
-    await expect(page.getByTestId('todo-title')).toHaveText(['Task B']);
+    await todoPage.filterBy('completed');
+    await expect(todoPage.todoTitles).toHaveText(['Task B']);
   });
 });
+
+
