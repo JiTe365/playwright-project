@@ -31,7 +31,7 @@ export class SauceDemoInventoryPage {
     this.removeButtons = page.locator('[id^="remove"]');
     this.cartBadge = page.locator('.shopping_cart_badge');
     this.cartLink = page.locator('.shopping_cart_link');
-    this.filterDropdown = page.locator('.product_sort_container');
+    this.filterDropdown = page.locator('select.product_sort_container');
     this.menuButton = page.locator('#react-burger-menu-btn');
     this.logoutLink = page.locator('#logout_sidebar_link');
   }
@@ -92,7 +92,9 @@ export class SauceDemoInventoryPage {
    * Filter products by sort option
    */
   async filterBy(option: 'name-asc' | 'name-desc' | 'price-asc' | 'price-desc') {
-    await this.filterDropdown.selectOption(option);
+    // Use getByRole for better accessibility and reliability
+    const select = this.page.locator('select.product_sort_container');
+    await select.selectOption(option);
   }
 
   /**

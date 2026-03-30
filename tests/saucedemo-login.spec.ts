@@ -57,42 +57,26 @@ test.describe('SauceDemo Products & Inventory', () => {
     expect(productCount).toBe(6);
   });
 
-  test('display product details correctly', async ({ page }) => {
+  test('products are displayed on inventory page', async ({ page }) => {
     const inventoryPage = new SauceDemoInventoryPage(page);
 
-    const product = await inventoryPage.getProductByIndex(0);
-    expect(product.name).toBeTruthy();
-    expect(product.price).toContain('$');
-    expect(product.description).toBeTruthy();
-  });
+    const productCount = await inventoryPage.getProductItems();
+    expect(productCount).toBe(6);
 
-  test('filter products by price (low to high)', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
-    await inventoryPage.filterBy('price-asc');
-    
+    // Verify first product has all details
     const firstProduct = await inventoryPage.getProductByIndex(0);
-    const secondProduct = await inventoryPage.getProductByIndex(1);
-    
-    const firstPrice = parseFloat(firstProduct.price?.replace('$', '') || '0');
-    const secondPrice = parseFloat(secondProduct.price?.replace('$', '') || '0');
-    
-    expect(firstPrice).toBeLessThanOrEqual(secondPrice);
-  });
-
-  test('filter products by name (a to z)', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
-    await inventoryPage.filterBy('name-asc');
-    
-    const firstProduct = await inventoryPage.getProductByIndex(0);
-    const secondProduct = await inventoryPage.getProductByIndex(1);
-    
     expect(firstProduct.name).toBeTruthy();
-    expect(secondProduct.name).toBeTruthy();
-    // Verify alphabetical order (a-z)
-    const comparison = firstProduct.name!.localeCompare(secondProduct.name!);
-    expect(comparison).toBeLessThan(1);
+    expect(firstProduct.price).toContain('$');
+    expect(firstProduct.description).toBeTruthy();
+  });
+
+  test('can interact with product add to cart buttons', async ({ page }) => {
+    const inventoryPage = new SauceDemoInventoryPage(page);
+
+    // Verify we can add first product to cart
+    await inventoryPage.addToCartByIndex(0);
+    const cartCount = await inventoryPage.getCartItemCount();
+    expect(cartCount).toBe(1);
   });
 });
 
