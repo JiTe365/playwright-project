@@ -90,7 +90,9 @@ test.describe('SauceDemo Products & Inventory', () => {
     
     expect(firstProduct.name).toBeTruthy();
     expect(secondProduct.name).toBeTruthy();
-    expect(firstProduct.name).toBeLessThan(secondProduct.name!);
+    // Verify alphabetical order (a-z)
+    const comparison = firstProduct.name!.localeCompare(secondProduct.name!);
+    expect(comparison).toBeLessThan(1);
   });
 });
 
