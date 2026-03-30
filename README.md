@@ -1,5 +1,3 @@
-# A complete Playwright test automation framework with real working examples.
-
 # Playwright Project Pack
 
 Complete Playwright test automation framework with real working examples.
@@ -7,16 +5,19 @@ Complete Playwright test automation framework with real working examples.
 ## Setup
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Copy environment file:
+
 ```bash
 cp .env.example .env
 ```
 
 3. Install browsers:
+
 ```bash
 npx playwright install
 ```
@@ -30,6 +31,7 @@ npm test
 # Run specific site tests
 npm run test:saucedemo
 npm run test:todomvc
+npm run test:token-demo
 
 # Run in headed mode
 npm run test:headed
@@ -39,26 +41,64 @@ npm run test:chromium
 npm run test:firefox
 ```
 
+## Token Usage Demo
+
+This project includes a local token usage demo app plus an end-to-end Playwright test.
+
+The token demo test:
+- sends a prompt from the UI
+- waits for the `/api/chat` response
+- reads the returned token usage
+- checks that the UI shows the same values
+- captures the same token usage through a response listener
+- checks that total token usage stays under a small budget
+
+Run it with:
+
+```bash
+npm run test:token-demo
+```
+
+Run it in headed mode with:
+
+```bash
+npm run test:token-demo:headed
+```
+
+GitHub Actions runs the token demo separately from the main Playwright suite by using its dedicated config.
+
+Relevant files:
+- `demo-app/token-demo/server.js`
+- `demo-app/token-demo/public/index.html`
+- `demo-app/token-demo/public/app.js`
+- `tests/token-usage.spec.ts`
+
 ## Test Sites
 
 - **SauceDemo** - E-commerce demo (https://www.saucedemo.com)
-  - Username: standard_user
-  - Password: secret_sauce
+- Username: `standard_user`
+- Password: `secret_sauce`
 - **TodoMVC** - Todo application (https://demo.playwright.dev/todomvc)
 - **The Internet** - Various test scenarios (https://the-internet.herokuapp.com)
 
 ## Project Structure
 
-```
-├── tests/              # Test files
-│   ├── saucedemo-login.spec.ts
-│   └── todomvc.spec.ts
-├── page-objects/       # Page object models
-├── test-data/          # Test data
-├── utils/              # Helper functions
-│   └── test-data.ts
-├── .env.example        # Environment variables template
-└── playwright.config.ts # Configuration
+```text
+tests/                          # Test files
+  saucedemo-login.spec.ts
+  todomvc.spec.ts
+  token-usage.spec.ts
+demo-app/                       # Local demo applications
+  token-demo/
+    server.js
+    public/
+      index.html
+      app.js
+utils/                          # Helper functions
+  test-data.ts
+.env.example                    # Environment variables template
+playwright.config.ts            # Main configuration
+playwright.token-demo.config.ts # Token demo configuration
 ```
 
 ## Writing Tests
@@ -68,19 +108,3 @@ See individual test files for examples of:
 - E-commerce checkout
 - Todo management
 - Form interactions
-
-Step 4: First Commit
-
-# Stage all files
-git add .
-
-# Commit
-git commit -m "Initial commit: Playwright framework with SauceDemo and TodoMVC tests"
-
-Step 5: Connect to GitHub
-
-# Create repo on GitHub first, then:
-git remote add origin https://github.com/yourusername/playwright-project-pack.git
-git branch -M main
-git push -u origin main
-

@@ -14,6 +14,7 @@ const siteMatch: Record<string, string[]> = {
 export default defineConfig({
   testDir: './tests',
   testMatch: site ? (siteMatch[site] ?? ['**/*.spec.ts']) : ['**/*.spec.ts'],
+  testIgnore: ['**/token-usage.spec.ts'],
 
   use: {
     trace: 'retain-on-failure',

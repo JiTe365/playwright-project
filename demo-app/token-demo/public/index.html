@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright Token Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 760px;
+        margin: 40px auto;
+        padding: 0 16px;
+        line-height: 1.5;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+      }
+
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 20px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 110px;
+        padding: 12px;
+        box-sizing: border-box;
+        font: inherit;
+      }
+
+      button {
+        margin-top: 12px;
+        padding: 10px 16px;
+        cursor: pointer;
+      }
+
+      .label {
+        font-weight: bold;
+      }
+
+      #status {
+        margin-top: 10px;
+      }
+
+      .usage-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .usage-grid div {
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 12px;
+        background: #fafafa;
+      }
+
+      @media (max-width: 640px) {
+        .usage-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Playwright token usage demo</h1>
+    <p>This local app simulates an AI chat response and returns token usage in the JSON response.</p>
+
+    <div class="card">
+      <label class="label" for="prompt">Prompt</label>
+      <textarea id="prompt" placeholder="Type your message">Explain how Playwright helps with browser automation.</textarea>
+      <br />
+      <button id="send-btn" type="button">Send</button>
+      <div id="status" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <div class="label">Answer</div>
+      <p id="answer">No answer yet.</p>
+    </div>
+
+    <div class="card">
+      <div class="label">Token usage</div>
+      <div class="usage-grid">
+        <div>
+          <div>Prompt tokens</div>
+          <strong id="promptTokens">0</strong>
+        </div>
+        <div>
+          <div>Completion tokens</div>
+          <strong id="completionTokens">0</strong>
+        </div>
+        <div>
+          <div>Total tokens</div>
+          <strong id="totalTokens">0</strong>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
