@@ -3,14 +3,16 @@ import { test, expect } from '@playwright/test';
 /**
  * API Status Code & Response Structure Tests
  * Validates HTTP status codes and response formats
+ * 
+ * NOTE: These tests require the demo server running on localhost:3000
+ * They are skipped automatically in CI environments (GitHub Actions, etc.)
  */
 
-test.describe('API - Status Codes & Response Validation', () => {
-  // Skip API tests in CI environments (GitHub Actions, etc.)
-  // These tests require a local demo server running on port 3000
-  const skipInCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
-  test.describe.configure({ skip: skipInCI });
+// Skip these tests in CI environments
+const skipInCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+const describeAPI = skipInCI ? test.describe.skip : test.describe;
 
+describeAPI('API - Status Codes & Response Validation', () => {
   const baseURL = 'http://localhost:3000';
 
   test.describe('Success Responses (2xx)', () => {
