@@ -3,7 +3,7 @@ import baseConfig from './playwright.config';
 
 export default defineConfig({
   ...baseConfig,
-  testMatch: ['**/token-usage.spec.ts'],
+  testMatch: ['**/token-usage.spec.ts', '**/api-status-codes.spec.ts'],
   testIgnore: [],
   webServer: {
     command: 'node demo-app/token-demo/server.js',

@@ -1,0 +1,1 @@
+node Notes\locator_script.js > locators_report.txt

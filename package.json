@@ -23,6 +23,9 @@
     "test:token-demo": "playwright test --config=playwright.token-demo.config.ts",
     "test:token-demo:headed": "playwright test --config=playwright.token-demo.config.ts --headed",
 
+    "test:api": "playwright test tests/api-status-codes.spec.ts --config=playwright.token-demo.config.ts",
+    "test:api:headed": "playwright test tests/api-status-codes.spec.ts --config=playwright.token-demo.config.ts --headed",
+
     "test:todomvc": "playwright test tests/todomvc.spec.ts",
     "test:todomvc:headed": "playwright test tests/todomvc.spec.ts --headed",
     "test:todomvc:ui": "playwright test tests/todomvc.spec.ts --ui",

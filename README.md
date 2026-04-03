@@ -33,6 +33,10 @@ npm run test:saucedemo
 npm run test:todomvc
 npm run test:token-demo
 
+# Run API tests (includes server auto-start)
+npm run test:api
+npm run test:api:headed
+
 # Run in headed mode
 npm run test:headed
 
@@ -84,18 +88,25 @@ Relevant files:
 ## Project Structure
 
 ```text
-tests/                          # Test files
-  saucedemo-login.spec.ts
-  todomvc.spec.ts
-  token-usage.spec.ts
+tests/                          # Test suites (~40+ test cases)
+  saucedemo-login.spec.ts       # SauceDemo tests (auth, products, cart, checkout)
+  todomvc.spec.ts               # TodoMVC tests (CRUD, filtering, persistence)
+  token-usage.spec.ts           # Token usage demo test
+  api-status-codes.spec.ts      # API status codes & response validation (12+ tests)
+utils/                          # Page Objects & Utilities
+  SauceDemoLoginPage.ts         # SauceDemo login page object
+  SauceDemoInventoryPage.ts     # SauceDemo inventory page object
+  SauceDemoCartPage.ts          # SauceDemo cart page object
+  SauceDemoCheckoutPage.ts      # SauceDemo checkout page object
+  TodoMVCPage.ts                # TodoMVC page object
+  test-data.ts                  # Test data (users, credentials)
+  types.ts                       # TypeScript type definitions
 demo-app/                       # Local demo applications
-  token-demo/
+  token-demo/                   # Token usage demo app
     server.js
     public/
       index.html
       app.js
-utils/                          # Helper functions
-  test-data.ts
 .env.example                    # Environment variables template
 playwright.config.ts            # Main configuration
 playwright.token-demo.config.ts # Token demo configuration
