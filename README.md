@@ -2,6 +2,10 @@
 
 Complete Playwright test automation framework with real working examples.
 
+## Notes
+
+> **API Tests (Local Only):** The `api-status-codes.spec.ts` tests are designed to run locally and require the demo server to be running. These tests are automatically **skipped in CI environments** (GitHub Actions). Run them locally with `npm run test:api`.
+
 ## Setup
 
 1. Install dependencies:

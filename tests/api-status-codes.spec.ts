@@ -6,6 +6,11 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('API - Status Codes & Response Validation', () => {
+  // Skip API tests in CI environments (GitHub Actions, etc.)
+  // These tests require a local demo server running on port 3000
+  const skipInCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+  test.describe.configure({ skip: skipInCI });
+
   const baseURL = 'http://localhost:3000';
 
   test.describe('Success Responses (2xx)', () => {
