@@ -61,4 +61,5 @@ Use Ctrl+Shift+F and search:
 
 dotenv.config
 
+npx playwright test tests/saucedemo-login.spec.ts --project=chromium
 

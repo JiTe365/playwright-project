@@ -97,6 +97,8 @@ tests/                          # Test suites (~40+ test cases)
   todomvc.spec.ts               # TodoMVC tests (CRUD, filtering, persistence)
   token-usage.spec.ts           # Token usage demo test
   api-status-codes.spec.ts      # API status codes & response validation (12+ tests)
+fixtures/                       # Shared Playwright fixtures
+  pom-fixtures.ts               # Custom test fixtures exposing page objects
 utils/                          # Page Objects & Utilities
   SauceDemoLoginPage.ts         # SauceDemo login page object
   SauceDemoInventoryPage.ts     # SauceDemo inventory page object
@@ -116,6 +118,31 @@ playwright.config.ts            # Main configuration
 playwright.token-demo.config.ts # Token demo configuration
 ```
 
+## POM And Fixtures
+
+This project uses the `Page Object Model (POM)` pattern together with custom Playwright fixtures.
+
+- Page objects live in `utils/` and contain selectors plus page-specific actions.
+- Shared fixtures live in `fixtures/pom-fixtures.ts`.
+- Tests can receive ready-to-use page objects like `loginPage`, `inventoryPage`, `cartPage`, `checkoutPage`, and `todoPage`.
+
+This keeps the test files focused on behavior and assertions instead of repeatedly creating page object instances with `new ...Page(page)`.
+
+Example:
+
+```ts
+import { test, expect } from '../fixtures/pom-fixtures';
+
+test.beforeEach(async ({ todoPage }) => {
+  await todoPage.goto();
+});
+
+test('can add a todo item', async ({ todoPage }) => {
+  await todoPage.addTodo('Buy milk');
+  await expect(todoPage.todoTitles).toHaveText(['Buy milk']);
+});
+```
+
 ## Writing Tests
 
 See individual test files for examples of:
@@ -123,3 +150,11 @@ See individual test files for examples of:
 - E-commerce checkout
 - Todo management
 - Form interactions
+
+When a test uses page objects, import `test` and `expect` from `fixtures/pom-fixtures`:
+
+```ts
+import { test, expect } from '../fixtures/pom-fixtures';
+```
+
+If a test does not need custom page object fixtures, importing from `@playwright/test` is still fine.

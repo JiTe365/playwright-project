@@ -1,15 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/pom-fixtures';
 import { SauceDemoUsers } from '../utils/test-data';
-import { SauceDemoLoginPage } from '../utils/SauceDemoLoginPage';
-import { SauceDemoInventoryPage } from '../utils/SauceDemoInventoryPage';
-import { SauceDemoCartPage } from '../utils/SauceDemoCartPage';
-import { SauceDemoCheckoutPage } from '../utils/SauceDemoCheckoutPage';
 
 test.describe('SauceDemo Authentication', () => {
-  test('successful login with standard user', async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
+  test('successful login with standard user', async ({ page, loginPage, inventoryPage }) => {
     await loginPage.login(SauceDemoUsers.standard);
 
     await expect(page).toHaveURL(/\/inventory\.html$/);
@@ -17,49 +10,37 @@ test.describe('SauceDemo Authentication', () => {
     expect(productCount).toBeGreaterThan(0);
   });
 
-  test('login fails with locked out user', async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
-
+  test('login fails with locked out user', async ({ loginPage }) => {
     await loginPage.goto();
     await loginPage.fillUsername(SauceDemoUsers.locked.username);
     await loginPage.fillPassword(SauceDemoUsers.locked.password);
     await loginPage.clickLogin();
 
-    const errorVisible = await loginPage.isErrorVisible();
-    expect(errorVisible).toBe(true);
-    const errorMsg = await loginPage.getErrorMessage();
-    expect(errorMsg).toContain('locked out');
+    await expect(loginPage.errorMessage).toBeVisible();
+    await expect(loginPage.errorMessage).toContainText('locked out');
   });
 
-  test('login fails with invalid credentials', async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
-
+  test('login fails with invalid credentials', async ({ loginPage }) => {
     await loginPage.goto();
     await loginPage.fillUsername('invalid_user');
     await loginPage.fillPassword('wrong_password');
     await loginPage.clickLogin();
 
-    const errorVisible = await loginPage.isErrorVisible();
-    expect(errorVisible).toBe(true);
+    await expect(loginPage.errorMessage).toBeVisible();
   });
 });
 
 test.describe('SauceDemo Products & Inventory', () => {
-  test.beforeEach(async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
+  test.beforeEach(async ({ loginPage }) => {
     await loginPage.login(SauceDemoUsers.standard);
   });
 
-  test('display all products on inventory page', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
+  test('display all products on inventory page', async ({ inventoryPage }) => {
     const productCount = await inventoryPage.getProductItems();
     expect(productCount).toBe(6);
   });
 
-  test('products are displayed on inventory page', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
+  test('products are displayed on inventory page', async ({ inventoryPage }) => {
     const productCount = await inventoryPage.getProductItems();
     expect(productCount).toBe(6);
 
@@ -70,9 +51,7 @@ test.describe('SauceDemo Products & Inventory', () => {
     expect(firstProduct.description).toBeTruthy();
   });
 
-  test('can interact with product add to cart buttons', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
+  test('can interact with product add to cart buttons', async ({ inventoryPage }) => {
     // Verify we can add first product to cart
     await inventoryPage.addToCartByIndex(0);
     const cartCount = await inventoryPage.getCartItemCount();
@@ -81,15 +60,11 @@ test.describe('SauceDemo Products & Inventory', () => {
 });
 
 test.describe('SauceDemo Shopping Cart', () => {
-  test.beforeEach(async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
+  test.beforeEach(async ({ loginPage }) => {
     await loginPage.login(SauceDemoUsers.standard);
   });
 
-  test('add products to cart and verify count', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-    const cartPage = new SauceDemoCartPage(page);
-
+  test('add products to cart and verify count', async ({ inventoryPage, cartPage }) => {
     await inventoryPage.addToCartByIndex(0);
     await inventoryPage.addToCartByIndex(1);
 
@@ -101,10 +76,7 @@ test.describe('SauceDemo Shopping Cart', () => {
     expect(itemsInCart).toBe(2);
   });
 
-  test('remove products from cart', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-    const cartPage = new SauceDemoCartPage(page);
-
+  test('remove products from cart', async ({ inventoryPage, cartPage }) => {
     await inventoryPage.addToCartByIndex(0);
     await inventoryPage.addToCartByIndex(1);
     await inventoryPage.goToCart();
@@ -114,10 +86,7 @@ test.describe('SauceDemo Shopping Cart', () => {
     expect(itemsInCart).toBe(1);
   });
 
-  test('continue shopping from cart', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-    const cartPage = new SauceDemoCartPage(page);
-
+  test('continue shopping from cart', async ({ page, inventoryPage, cartPage }) => {
     await inventoryPage.addToCartByIndex(0);
     await inventoryPage.goToCart();
     await cartPage.continueShopping();
@@ -127,16 +96,11 @@ test.describe('SauceDemo Shopping Cart', () => {
 });
 
 test.describe('SauceDemo Checkout', () => {
-  test.beforeEach(async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
+  test.beforeEach(async ({ loginPage }) => {
     await loginPage.login(SauceDemoUsers.standard);
   });
 
-  test('complete full checkout flow', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-    const cartPage = new SauceDemoCartPage(page);
-    const checkoutPage = new SauceDemoCheckoutPage(page);
-
+  test('complete full checkout flow', async ({ inventoryPage, cartPage, checkoutPage }) => {
     // Add items to cart
     await inventoryPage.addToCartByIndex(0);
     await inventoryPage.addToCartByIndex(1);
@@ -159,11 +123,7 @@ test.describe('SauceDemo Checkout', () => {
     expect(message).toContain('Thank you');
   });
 
-  test('checkout fails with missing first name', async ({ page }) => {
-    const inventoryPage = new SauceDemoInventoryPage(page);
-    const cartPage = new SauceDemoCartPage(page);
-    const checkoutPage = new SauceDemoCheckoutPage(page);
-
+  test('checkout fails with missing first name', async ({ inventoryPage, cartPage, checkoutPage }) => {
     await inventoryPage.addToCartByIndex(0);
     await inventoryPage.goToCart();
     await cartPage.checkout();
@@ -172,16 +132,12 @@ test.describe('SauceDemo Checkout', () => {
     await checkoutPage.fillShippingInfo('', 'Doe', '12345');
     await checkoutPage.clickContinue();
 
-    const errorVisible = await checkoutPage.page.locator('[data-test="error"]').isVisible();
-    expect(errorVisible).toBe(true);
+    await expect(checkoutPage.errorMessage).toBeVisible();
   });
 });
 
 test.describe('SauceDemo Logout', () => {
-  test('logout from inventory page', async ({ page }) => {
-    const loginPage = new SauceDemoLoginPage(page);
-    const inventoryPage = new SauceDemoInventoryPage(page);
-
+  test('logout from inventory page', async ({ page, loginPage, inventoryPage }) => {
     await loginPage.login(SauceDemoUsers.standard);
     await expect(page).toHaveURL(/\/inventory\.html$/);
 

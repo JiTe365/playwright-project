@@ -1,22 +1,18 @@
-import { test, expect } from '@playwright/test';
-import { TodoMVCPage } from '../utils/TodoMVCPage';
+import { test, expect } from '../fixtures/pom-fixtures';
+
+test.beforeEach(async ({ todoPage }) => {
+  await todoPage.goto();
+});
 
 test.describe('TodoMVC - Basic Operations', () => {
-  let todoPage: TodoMVCPage;
-
-  test.beforeEach(async ({ page }) => {
-    todoPage = new TodoMVCPage(page);
-    await todoPage.goto();
-  });
-
-  test('can add a todo item', async () => {
+  test('can add a todo item', async ({ todoPage }) => {
     await todoPage.addTodo('Buy milk');
 
     await expect(todoPage.todoTitles).toHaveText(['Buy milk']);
     await expect(todoPage.todoCount).toContainText('1 item left');
   });
 
-  test('can add multiple todo items', async () => {
+  test('can add multiple todo items', async ({ todoPage }) => {
     await todoPage.addMultipleTodos(['Buy milk', 'Walk the dog', 'Do laundry']);
 
     const todos = await todoPage.getAllTodos();
@@ -24,7 +20,7 @@ test.describe('TodoMVC - Basic Operations', () => {
     await expect(todoPage.todoCount).toContainText('3 items left');
   });
 
-  test('can complete a todo item', async () => {
+  test('can complete a todo item', async ({ todoPage }) => {
     await todoPage.addTodo('Buy milk');
     await todoPage.completeTodoByIndex(0);
 
@@ -32,7 +28,7 @@ test.describe('TodoMVC - Basic Operations', () => {
     await expect(todoPage.todoCount).toContainText('0 items left');
   });
 
-  test('can uncomplete a todo item', async () => {
+  test('can uncomplete a todo item', async ({ todoPage }) => {
     await todoPage.addTodo('Buy milk');
     await todoPage.completeTodoByIndex(0);
     await todoPage.uncompleteTodoByIndex(0);
@@ -43,14 +39,7 @@ test.describe('TodoMVC - Basic Operations', () => {
 });
 
 test.describe('TodoMVC - Filtering', () => {
-  let todoPage: TodoMVCPage;
-
-  test.beforeEach(async ({ page }) => {
-    todoPage = new TodoMVCPage(page);
-    await todoPage.goto();
-  });
-
-  test('can filter Active and Completed', async () => {
+  test('can filter Active and Completed', async ({ todoPage }) => {
     await todoPage.addMultipleTodos(['Task A', 'Task B']);
 
     // Complete Task B
@@ -69,7 +58,7 @@ test.describe('TodoMVC - Filtering', () => {
     await expect(todoPage.todoTitles).toHaveText(['Task A', 'Task B']);
   });
 
-  test('active filter shows correct count', async () => {
+  test('active filter shows correct count', async ({ todoPage }) => {
     await todoPage.addMultipleTodos(['Task A', 'Task B', 'Task C']);
     await todoPage.completeTodoByIndex(0);
     await todoPage.completeTodoByIndex(2);
@@ -80,14 +69,7 @@ test.describe('TodoMVC - Filtering', () => {
 });
 
 test.describe('TodoMVC - Clearing & Deletion', () => {
-  let todoPage: TodoMVCPage;
-
-  test.beforeEach(async ({ page }) => {
-    todoPage = new TodoMVCPage(page);
-    await todoPage.goto();
-  });
-
-  test('can complete and clear all completed todos', async () => {
+  test('can complete and clear all completed todos', async ({ todoPage }) => {
     await todoPage.addMultipleTodos(['Task A', 'Task B', 'Task C']);
     await todoPage.completeTodoByIndex(0);
     await todoPage.completeTodoByIndex(2);
@@ -99,22 +81,20 @@ test.describe('TodoMVC - Clearing & Deletion', () => {
     await expect(todoPage.todoCount).toContainText('1 item left');
   });
 
-  test('clear completed button only appears when items are completed', async () => {
+  test('clear completed button only appears when items are completed', async ({ todoPage }) => {
     await todoPage.addTodo('Task A');
 
     // Button should not be visible when no items are completed
-    let buttonVisible = await todoPage.clearCompletedButton.isVisible();
-    expect(buttonVisible).toBe(false);
+    await expect(todoPage.clearCompletedButton).toBeHidden();
 
     // Complete the item
     await todoPage.completeTodoByIndex(0);
 
     // Button should now be visible
-    buttonVisible = await todoPage.clearCompletedButton.isVisible();
-    expect(buttonVisible).toBe(true);
+    await expect(todoPage.clearCompletedButton).toBeVisible();
   });
 
-  test('can delete individual todo items', async () => {
+  test('can delete individual todo items', async ({ todoPage }) => {
     await todoPage.addMultipleTodos(['Task A', 'Task B', 'Task C']);
 
     // Delete middle item
@@ -128,14 +108,7 @@ test.describe('TodoMVC - Clearing & Deletion', () => {
 });
 
 test.describe('TodoMVC - Editing', () => {
-  let todoPage: TodoMVCPage;
-
-  test.beforeEach(async ({ page }) => {
-    todoPage = new TodoMVCPage(page);
-    await todoPage.goto();
-  });
-
-  test('can edit a todo item', async () => {
+  test('can edit a todo item', async ({ todoPage }) => {
     await todoPage.addTodo('Buy milk');
     await todoPage.editTodoByIndex(0, 'Buy almond milk');
 
@@ -144,7 +117,7 @@ test.describe('TodoMVC - Editing', () => {
     expect(todos).not.toContain('Buy milk');
   });
 
-  test('editing with empty text deletes the item', async () => {
+  test('editing with empty text deletes the item', async ({ todoPage }) => {
     await todoPage.addMultipleTodos(['Task A', 'Task B']);
     
     const item = todoPage.todoItems.nth(0);
@@ -162,12 +135,7 @@ test.describe('TodoMVC - Editing', () => {
 });
 
 test.describe('TodoMVC - Persistence', () => {
-  let todoPage: TodoMVCPage;
-
-  test('todos persist after page reload', async ({ page }) => {
-    todoPage = new TodoMVCPage(page);
-    await todoPage.goto();
-
+  test('todos persist after page reload', async ({ page, todoPage }) => {
     // Add some todos
     await todoPage.addMultipleTodos(['Task A', 'Task B']);
     await todoPage.completeTodoByIndex(0);
@@ -186,14 +154,7 @@ test.describe('TodoMVC - Persistence', () => {
 });
 
 test.describe('TodoMVC - Edge Cases', () => {
-  let todoPage: TodoMVCPage;
-
-  test.beforeEach(async ({ page }) => {
-    todoPage = new TodoMVCPage(page);
-    await todoPage.goto();
-  });
-
-  test('cannot add empty todo', async () => {
+  test('cannot add empty todo', async ({ todoPage }) => {
     // Try to submit empty input
     await todoPage.newTodoInput.press('Enter');
 
@@ -201,7 +162,7 @@ test.describe('TodoMVC - Edge Cases', () => {
     expect(itemCount).toBe(0);
   });
 
-  test('can add todo with very long text', async () => {
+  test('can add todo with very long text', async ({ todoPage }) => {
     const longText = 'This is a very long todo item that contains many words and should still work properly without any issues ' +
                      'even though it is quite lengthy and might cause some rendering issues on smaller screens';
 
@@ -211,7 +172,7 @@ test.describe('TodoMVC - Edge Cases', () => {
     expect(todos[0]).toContain('This is a very long');
   });
 
-  test('can add todo with special characters', async () => {
+  test('can add todo with special characters', async ({ todoPage }) => {
     const specialText = 'Buy @milk & eggs! Cost: $5.99';
 
     await todoPage.addTodo(specialText);
@@ -220,7 +181,7 @@ test.describe('TodoMVC - Edge Cases', () => {
     expect(todos).toContain(specialText);
   });
 
-  test('todo count updates correctly', async () => {
+  test('todo count updates correctly', async ({ todoPage }) => {
     await todoPage.addTodo('Task 1');
     await expect(todoPage.todoCount).toContainText('1 item left');
 
@@ -231,5 +192,3 @@ test.describe('TodoMVC - Edge Cases', () => {
     await expect(todoPage.todoCount).toContainText('1 item left');
   });
 });
-
-
